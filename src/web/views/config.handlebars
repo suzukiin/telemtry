@@ -1,0 +1,57 @@
+<div class="container mt-5">
+  <h1 class="mb-4">Configuração do Equipamento</h1>
+  <form id="equipForm">
+    <div class="mb-3">
+      <label for="brand" class="form-label">Marca do equipamento</label>
+      <select name="brand" id="brand" class="form-select">
+        <option value="Rohde & Schwarz">Rohde & Schwarz</option>
+        <option value="Linear Denki">Linear Denki</option>
+        <option value="Nec">Nec</option>
+        <option value="Teletronix">Teletronix</option>
+        <option value="Harris">Harris</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="model" class="form-label">Modelo</label>
+      <input type="text" class="form-control" id="model" placeholder="Modelo do Equipamento">
+    </div>
+    <div class="mb-3">
+      <label for="serieNumber" class="form-label">Número de Série</label>
+      <input type="text" class="form-control" id="serieNumber" placeholder="Número de Série do Equipamento">
+    </div>
+    <div class="mb-3">
+      <label for="ip" class="form-label">Ip do Equipamento</label>
+      <input type="text" class="form-control" id="ip" placeholder="Ip do Equipamento">
+    </div>
+    <button type="submit" class="btn btn-primary">Salvar Configuração</button>
+    <button type="button" class="btn btn-secondary" id="testConnection">Testar Conexão</button>
+  </form>
+</div>
+
+<script>
+  document.getElementById('equipForm').addEventListener('submit', async function (event) {
+    event.preventDefault();
+    const brand = document.getElementById('brand').value;
+    const model = document.getElementById('model').value;
+    const serieNumber = document.getElementById('serieNumber').value;
+    const ip = document.getElementById('ip').value;
+    const equipamento = { brand, model, serieNumber, ip };
+
+    var res = await fetch('/salvarEquipamento', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(equipamento)
+    });
+
+    if (res.ok) {
+      const result = await res.json();
+      console.log('Equipamento salvo com sucesso:', result);
+    } else {
+      console.error('Erro ao salvar equipamento:', res.statusText);
+    }
+
+    document.getElementById('equipForm').reset();
+  });
+</script>

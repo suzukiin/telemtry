@@ -1,0 +1,46 @@
+<div class="container d-flex flex-column align-items-center justify-content-center" style="min-height: 80vh;">
+  <div class="card shadow" style="max-width: 480px; width: 100%;">
+    <div class="card-body">
+      <div class="d-flex align-items-center mb-4">
+        {{!-- Ícone da marca --}}
+        {{#if equipamento.brand}}
+          <img src="/img/brands/{{lowercase equipamento.brand}}.png" alt="{{equipamento.brand}}" style="width:48px;height:48px;margin-right:12px;">
+        {{else}}
+          <img src="/img/brands/default.png" alt="Marca" style="width:48px;height:48px;margin-right:12px;">
+        {{/if}}
+        <div>
+          <h5 class="mb-0">{{equipamento.brand}} - {{equipamento.model}}</h5>
+        </div>
+      </div>
+      <h4 class="mb-3 text-center">Adicionar OID</h4>
+      <form method="POST" action="/equipamento/{{equipamento.id}}/adicionar-oid">
+        <div class="mb-3">
+          <label for="oid" class="form-label">OID</label>
+          <input type="text" class="form-control" id="oid" name="oid" required placeholder="Ex: 1.3.6.1.2.1.1.1.0">
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Descrição</label>
+          <input type="text" class="form-control" id="description" name="description" required placeholder="Ex: Temperatura do TX">
+        </div>
+        <div class="mb-3">
+          <label for="mask" class="form-label">Máscara</label>
+          <input type="text" class="form-control" id="mask" name="mask" placeholder="Ex: 0,01">
+        </div>
+        <div class="mb-3">
+          <label for="type" class="form-label">Tipo</label>
+          <select class="form-select" id="type" name="type">
+            <option value="numeric">Numérico</option>
+            <option value="string">Texto</option>
+            <option value="boolean">Booleano</option>
+          </select>
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary">Salvar OID</button>
+        </div>
+      </form>
+      <div class="mt-3 text-center">
+        <a href="/" class="btn btn-link">Voltar</a>
+      </div>
+    </div>
+  </div>
+</div>
